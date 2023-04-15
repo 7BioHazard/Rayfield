@@ -1656,8 +1656,6 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Input.InputFrame.Size = UDim2.new(0, Input.InputFrame.InputBox.TextBounds.X + 24, 0, 30)
 
 			Input.InputFrame.InputBox.FocusLost:Connect(function()
-
-
 				local Success, Response = pcall(function()
 					InputSettings.Callback(Input.InputFrame.InputBox.Text)
 				end)
@@ -1675,7 +1673,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if InputSettings.RemoveTextAfterFocusLost then
 					Input.InputFrame.InputBox.Text = ""
 				end
-				SaveConfiguration()
+				if Settings.ConfigurationSaving then
+					if Settings.ConfigurationSaving.Enabled and InputSettings.Flag then
+						RayfieldLibrary.Flags[InputSettings.Flag] = InputSettings
+					end
+				end
 			end)
 
 			Input.MouseEnter:Connect(function()
