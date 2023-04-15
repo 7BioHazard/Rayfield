@@ -250,7 +250,7 @@ local function LoadConfiguration(Configuration)
 					RayfieldLibrary.Flags[FlagName]:Set(UnpackColor(FlagValue))
 				else
 					if RayfieldLibrary.Flags[FlagName].CurrentValue or RayfieldLibrary.Flags[FlagName].CurrentKeybind or RayfieldLibrary.Flags[FlagName].CurrentOption or RayfieldLibrary.Flags[FlagName].Color ~= FlagValue then RayfieldLibrary.Flags[FlagName]:Set(FlagValue) end
-				end    
+				end
 			end)
 		else
 			RayfieldLibrary:Notify({Title = "Flag Error", Content = "Rayfield was unable to find '"..FlagName.. "'' in the current script"})
@@ -265,9 +265,9 @@ local function SaveConfiguration()
 		if v.Type == "ColorPicker" then
 			Data[i] = PackColor(v.Color)
 		else
-			Data[i] = v.CurrentValue or v.CurrentKeybind or v.CurrentOption or v.Color
+			Data[i] = v.CurrentValue or v.CurrentKeybind or v.CurrentOption or v.Color or v.CurrentText
 		end
-	end	
+	end
 	writefile(ConfigurationFolder .. "/" .. CFileName .. ConfigurationExtension, tostring(HttpService:JSONEncode(Data)))
 end
 
@@ -1104,6 +1104,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 						TweenService:Create(KeyMain.Hide, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {ImageTransparency = 1}):Play()
 						wait(0.45)
 						game.Players.LocalPlayer:Kick("No Attempts Remaining")
+						task.wait(3)
 						game:Shutdown()
 					end
 					KeyMain.Input.InputBox.Text = ""
@@ -1652,6 +1653,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			TweenService:Create(Input.Title, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()	
 
 			Input.InputFrame.InputBox.PlaceholderText = InputSettings.PlaceholderText
+			Input.InputFrame.InputBox.Text = InputSettings.CurrentText
 			Input.InputFrame.Size = UDim2.new(0, Input.InputFrame.InputBox.TextBounds.X + 24, 0, 30)
 
 			Input.InputFrame.InputBox.FocusLost:Connect(function()
@@ -1688,6 +1690,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 			Input.InputFrame.InputBox:GetPropertyChangedSignal("Text"):Connect(function()
 				TweenService:Create(Input.InputFrame, TweenInfo.new(0.55, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, Input.InputFrame.InputBox.TextBounds.X + 24, 0, 30)}):Play()
 			end)
+
+			function InputSettings:Set(NewVal)
+				Input.InputFrame.InputBox.Text = NewVal
+				SaveConfiguration()
+			end
 		end
 
 		-- Dropdown
