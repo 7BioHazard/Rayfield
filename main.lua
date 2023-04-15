@@ -11,7 +11,7 @@ xZyn  | This version
 
 
 
-local Release = "xZyn's Edit | Beta 1"
+local Release = "xZyn's Edit | Beta 1R"
 local NotificationDuration = 6.5
 local RayfieldFolder = "Rayfield"
 local ConfigurationFolder = RayfieldFolder.."/Configurations"
@@ -1700,6 +1700,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 					RayfieldLibrary.Flags[InputSettings.Flag] = InputSettings
 				end
 			end
+
+			return InputSettings
 		end
 
 		-- Dropdown
