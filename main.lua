@@ -245,7 +245,7 @@ local function LoadConfiguration(Configuration)
 	local Data = HttpService:JSONDecode(Configuration)
 	for FlagName, FlagValue in next, Data do
 		if RayfieldLibrary.Flags[FlagName] then
-			spawn(function() 
+			spawn(function()
 				if RayfieldLibrary.Flags[FlagName].Type == "ColorPicker" then
 					RayfieldLibrary.Flags[FlagName]:Set(UnpackColor(FlagValue))
 				else
@@ -1692,6 +1692,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			function InputSettings:Set(NewInput)
 				Input.InputFrame.InputBox.Text = NewInput
+				SaveConfiguration()
 			end
 		end
 
