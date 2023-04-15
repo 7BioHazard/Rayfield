@@ -11,7 +11,7 @@ xZyn  | This version
 
 
 
-local Release = "xZyn's Edit"
+local Release = "xZyn's Edit | Beta 1"
 local NotificationDuration = 6.5
 local RayfieldFolder = "Rayfield"
 local ConfigurationFolder = RayfieldFolder.."/Configurations"
