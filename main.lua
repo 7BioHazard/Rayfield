@@ -2409,8 +2409,16 @@ function RayfieldLibrary:CreateWindow(Settings)
 end
 
 
-function RayfieldLibrary:Destroy()
+function RayfieldLibrary:Unload()
+	if RayfieldLibrary.OnUnload then
+        RayfieldLibrary.OnUnload()
+    end
+
 	Rayfield:Destroy()
+end
+
+function RayfieldLibrary:OnUnload(Callback)
+    RayfieldLibrary.OnUnload = Callback
 end
 
 Topbar.ChangeSize.MouseButton1Click:Connect(function()
