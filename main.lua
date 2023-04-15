@@ -1673,11 +1673,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				if InputSettings.RemoveTextAfterFocusLost then
 					Input.InputFrame.InputBox.Text = ""
 				end
-				if Settings.ConfigurationSaving then
-					if Settings.ConfigurationSaving.Enabled and InputSettings.Flag then
-						RayfieldLibrary.Flags[InputSettings.Flag] = InputSettings
-					end
-				end
+				SaveConfiguration()
 			end)
 
 			Input.MouseEnter:Connect(function()
