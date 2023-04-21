@@ -9,9 +9,6 @@ local Character = Player.Character or Player.CharacterAdded:Wait()
 local Humanoid = Character:WaitForChild("Humanoid")
 local Root = Character.PrimaryPart
 
-local Knit = require(ReplicatedStorage.Packages.knit)
-local Nuke = Knit.GetController("NukeController")
-
 local function Noclip()
     for _, v in next, Character:GetDescendants() do
         if v:IsA("BasePart") and v.CanCollide == true then
@@ -66,17 +63,6 @@ for _, v in next, workspace:WaitForChild("Buildings"):GetChildren() do
         Root:PivoTo(v:FindFirstChildWhichIsA("Model").CollisionBox.CFrame + Vector3.new(0, 15, 0))
     end)
 end
-
-local tab3 = main:CreateTab("Основы")
-
-tab3:CreateButton("Всегда критичиский дамаг", function()
-    local AttackHook do
-        AttackHook = hookfunction(Nuke.Attack, function(Self, Target, ...)
-            rawset(Target, "nextAttackCritical", true)
-            return AttackHook(Self, Target, ...)
-        end)
-     end
-end)
 
 Player.CharacterAdded:Connect(function(char)
     Character = char
